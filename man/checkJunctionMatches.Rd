@@ -5,14 +5,14 @@
 \title{Check junction matches
 Check if 2 sets of splice junctions match.}
 \usage{
-checkJunctionMatches(set1, set2, flexibility = 0)
+checkJunctionMatches(set1, set2, flexibility)
 }
 \arguments{
 \item{set1}{tibble with column names junction_no, start, end}
 
 \item{set2}{tibble with column names junction_no, start, end}
 
-\item{flexibility}{integer value - number of bases away to still be classified as a match. For exact matches set flexibility to 0. Default: 0}
+\item{flexibility}{integer value - number of bases away to still be classified as a match. For exact matches set flexibility to 0.}
 }
 \value{
 vector of TRUE and FALSE values

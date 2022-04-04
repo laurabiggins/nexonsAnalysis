@@ -101,12 +101,17 @@ Default is 10.
 file <- system.file("extdata", "nexons_sirv5_f15_trunc.txt", package = "nexonsAnalysis")
 nexons_output <- readr::read_delim(file)
 parsed_splices <- parse_nexons_gtf(nexons_output, min_count = 3)
-
 parsed_with_trunc <- identifyPotentialTruncations(parsed_splices, flexibility = 10)
 DT::datatable(parsed_with_trunc)
 ```
 
 ![](man/figures/README-unnamed-chunk-7-1.png)
+
+``` r
+draw_splice_picture(parsed_splices, quant = TRUE, order_splices = "name")
+```
+
+![](man/figures/README-unnamed-chunk-7-2.png)
 
 ## Flagging up truncations
 

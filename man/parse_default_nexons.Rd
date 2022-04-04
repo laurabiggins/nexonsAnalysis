@@ -12,6 +12,8 @@ parse_default_nexons(nexons_output, score_column, min_count = 1)
 \item{score_column}{name of the column containing the scores}
 
 \item{min_count}{minimum count for the splice pattern to be included (default: 1)}
+
+\item{min_junctions}{minimum number of splice junctions (default: 1)}
 }
 \value{
 tibble containing the columns "variant", "strand", "score", "Transcript_id", "Gene_id", "splice_pattern"

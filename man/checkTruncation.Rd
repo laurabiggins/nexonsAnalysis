@@ -4,14 +4,14 @@
 \alias{checkTruncation}
 \title{checkTruncation}
 \usage{
-checkTruncation(other_set, potential_truncs, flexibility = 0)
+checkTruncation(other_set, potential_truncs, flexibility)
 }
 \arguments{
 \item{other_set}{tibble - one set of splice junctions}
 
 \item{potential_truncs}{tibble - one set of splice junctions to test to see if they might be truncations}
 
-\item{flexibility}{integer value - number of bases away to still be classified as a match. For exact matches set flexibility to 0. Default: 0}
+\item{flexibility}{integer value - number of bases away to still be classified as a match. For exact matches set flexibility to 0.}
 }
 \value{
 TRUE or FALSE value
