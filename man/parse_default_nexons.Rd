@@ -4,7 +4,12 @@
 \alias{parse_default_nexons}
 \title{Parse default nexons output}
 \usage{
-parse_default_nexons(nexons_output, score_column, min_count = 1)
+parse_default_nexons(
+  nexons_output,
+  score_column,
+  min_count = 1,
+  min_junctions = 1
+)
 }
 \arguments{
 \item{nexons_output}{dataframe containing columns named "Gene ID", "Strand", "SplicePattern", "Transcript id" and one containing the scores, the name of which is specified in the score_column argument}

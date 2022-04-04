@@ -80,7 +80,7 @@ parse_nexons_gtf <- function(nexon_gtf, min_count = 1, min_junctions = 1){
 #' nexons_output <- readr::read_delim(file)
 #' parsed_splices <- parse_default_nexons(nexons_output, score_column = "seqs_sirv5_minimap.sam")
 
-parse_default_nexons <- function(nexons_output, score_column, min_count = 1) {
+parse_default_nexons <- function(nexons_output, score_column, min_count = 1,  min_junctions = 1) {
 
   nexons_output |>
     dplyr::rename(
@@ -143,8 +143,12 @@ add_exon_loci <- function(splice_data){
 #'
 identifyPotentialTruncations <- function(parsed_splices, flexibility = 10){
   # extract splice patterns and variant numbers from parsed_splices.
+  #
   # put them into a list where names are variant names/numbers
+  assertthat::validate_that(all(parsed_splices$n_junctions > 0), msg = "Cannot have splice patterns with fewer than 1 junctions, removing these...")
+  #
   all_junctions <- parsed_splices %>%
+    dplyr::filter(n_junctions > 0) %>%
     dplyr::select(variant, splice_pattern) %>%
     tibble::deframe() %>%
     purrr::map(.f=spliceStartsEnds)
