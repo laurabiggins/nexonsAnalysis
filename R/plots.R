@@ -125,9 +125,14 @@ draw_splice_picture <- function(splice_data, order_splices = NULL, gene = "", ge
     scale_fill_manual(values = strand_colour) +
     scale_colour_manual(values = strand_colour)
 
-  if(quant){
-    quant_plot <- plot_quant(splice_data_filt)
-    return(invisible(gridExtra::grid.arrange(p, quant_plot, nrow=1)))
+  if(quant == TRUE){
+    if("score" %in% colnames(splice_data_filt)){
+      quant_plot <- plot_quant(splice_data_filt)
+      return(invisible(gridExtra::grid.arrange(p, quant_plot, nrow=1)))
+    } else {
+      warning("No score column so quantitative plot cannot be created")
+      return (p)
+    }
   } else {
     return(p)
   }
