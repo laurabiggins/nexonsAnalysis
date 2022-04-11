@@ -68,7 +68,7 @@ parse_nexons_gtf <- function(nexon_gtf, min_count = 1, min_junctions = 1){
 #' compatible, so that it can be used as input to draw_splice_picture
 #'
 #' @param nexons_output dataframe containing columns named "Gene ID", "Strand", "SplicePattern", "Transcript id" and one containing the scores, the name of which is specified in the score_column argument
-#' @param score_column name of the column containing the scores
+#' @param score_column name of the column containing the scores - this needs to be provided to enable quantitative plots to be created. (default: NA)
 #' @param min_count minimum count for the splice pattern to be included (default: 1)
 #' @param min_junctions minimum number of splice junctions (default: 1)
 #'
@@ -80,23 +80,29 @@ parse_nexons_gtf <- function(nexon_gtf, min_count = 1, min_junctions = 1){
 #' nexons_output <- readr::read_delim(file)
 #' parsed_splices <- parse_default_nexons(nexons_output, score_column = "seqs_sirv5_minimap.sam")
 
-parse_default_nexons <- function(nexons_output, score_column, min_count = 1,  min_junctions = 1) {
+parse_default_nexons <- function(nexons_output, score_column=NA, min_count = 1,  min_junctions = 1) {
 
-  nexons_output |>
+  parsed <- nexons_output |>
     dplyr::rename(
       Gene_id = 'Gene ID',
       splice_pattern = SplicePattern,
       Transcript_id = 'Transcript id',
-      strand = Strand,
-      score = .data[[score_column]]
+      strand = Strand
     ) |>
-    dplyr::arrange(Transcript_id) |>
-    dplyr::filter(score >= min_count) |>
-    dplyr::mutate(n_junctions = stringr::str_count(splice_pattern, ":")) |>
-    dplyr::filter(n_junctions >= min_junctions) |>
-    dplyr::group_by(Gene_id) |>
-    dplyr::mutate(variant = 1:dplyr::n()) |>
-    dplyr::ungroup()
+    dplyr::arrange(Transcript_id)
+
+    if(!is.na(score_column)) {
+      parsed <- parsed |>
+        dplyr::rename(score = .data[[score_column]]) |>
+        dplyr::filter(score >= min_count)
+    }
+
+    parsed |>
+      dplyr::mutate(n_junctions = stringr::str_count(splice_pattern, ":")) |>
+      dplyr::filter(n_junctions >= min_junctions) |>
+      dplyr::group_by(Gene_id) |>
+      dplyr::mutate(variant = 1:dplyr::n()) |>
+      dplyr::ungroup()
 }
 
 #' Add exon loci
