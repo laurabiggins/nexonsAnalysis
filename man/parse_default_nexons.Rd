@@ -6,7 +6,7 @@
 \usage{
 parse_default_nexons(
   nexons_output,
-  score_column,
+  score_column = NA,
   min_count = 1,
   min_junctions = 1
 )
@@ -14,7 +14,7 @@ parse_default_nexons(
 \arguments{
 \item{nexons_output}{dataframe containing columns named "Gene ID", "Strand", "SplicePattern", "Transcript id" and one containing the scores, the name of which is specified in the score_column argument}
 
-\item{score_column}{name of the column containing the scores}
+\item{score_column}{name of the column containing the scores - this needs to be provided to enable quantitative plots to be created. (default: NA)}
 
 \item{min_count}{minimum count for the splice pattern to be included (default: 1)}
 
