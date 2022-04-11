@@ -59,6 +59,17 @@ draw_splice_picture(parsed_splices, quant = TRUE, order_splices = "name")
 
 ![](man/figures/README-unnamed-chunk-4-1.png)
 
+### For one sample - not supplying score_column
+
+``` r
+file <- system.file("extdata", "sirv5.txt", package = "nexonsAnalysis")
+nexons_output <- readr::read_delim(file)
+parsed_splices <- parse_default_nexons(nexons_output)
+draw_splice_picture(parsed_splices, quant = FALSE, order_splices = "name")
+```
+
+![](man/figures/README-unnamed-chunk-5-1.png)
+
 ### For multiple samples
 
 Use purrr::map to iterate over multiple datasets.
@@ -72,7 +83,7 @@ parsed_splices <- purrr::map(count_columns, parse_default_nexons, nexons_output=
 p <- purrr::map(parsed_splices, draw_splice_picture, quant=TRUE, order_splices = "score")
 ```
 
-![](man/figures/README-unnamed-chunk-5-1.png)![](man/figures/README-unnamed-chunk-5-2.png)
+![](man/figures/README-unnamed-chunk-6-1.png)![](man/figures/README-unnamed-chunk-6-2.png)
 
 ### Adding titles to the plots
 
@@ -86,7 +97,7 @@ parsed_splices <- purrr::map(count_columns, parse_default_nexons, nexons_output=
 p <- purrr::imap(parsed_splices, ~ draw_splice_picture(.x, title_text=.y, quant=TRUE, order_splices = "score"))
 ```
 
-![](man/figures/README-unnamed-chunk-6-1.png)![](man/figures/README-unnamed-chunk-6-2.png)
+![](man/figures/README-unnamed-chunk-7-1.png)![](man/figures/README-unnamed-chunk-7-2.png)
 
 ## Flagging up potentially truncated reads
 
@@ -105,13 +116,13 @@ parsed_with_trunc <- identifyPotentialTruncations(parsed_splices, flexibility = 
 DT::datatable(parsed_with_trunc)
 ```
 
-![](man/figures/README-unnamed-chunk-7-1.png)
+![](man/figures/README-unnamed-chunk-8-1.png)
 
 ``` r
 draw_splice_picture(parsed_splices, quant = TRUE, order_splices = "name")
 ```
 
-![](man/figures/README-unnamed-chunk-7-2.png)
+![](man/figures/README-unnamed-chunk-8-2.png)
 
 ## Flagging up truncations
 
@@ -126,4 +137,4 @@ parsed_default_with_trunc <- identifyPotentialTruncations(parsed_splices, flexib
 DT::datatable(parsed_default_with_trunc)
 ```
 
-![](man/figures/README-unnamed-chunk-8-1.png)
+![](man/figures/README-unnamed-chunk-9-1.png)

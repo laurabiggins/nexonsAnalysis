@@ -11,8 +11,8 @@ R functions for analysis and graphical representation of output from nexons
 ```{r setup, include=FALSE}
 library(knitr)
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, comment = FALSE, fig.path = "man/figures/README-")
-library(nexonsAnalysis)
-#devtools::load_all()
+#library(nexonsAnalysis)
+devtools::load_all()
 ```
 
 ```{r, eval = FALSE}
@@ -54,6 +54,15 @@ file <- system.file("extdata", "sirv5.txt", package = "nexonsAnalysis")
 nexons_output <- readr::read_delim(file)
 parsed_splices <- parse_default_nexons(nexons_output, score_column = "seqs_sirv5_minimap.sam")
 draw_splice_picture(parsed_splices, quant = TRUE, order_splices = "name")
+```
+
+### For one sample - not supplying score_column
+
+```{r, fig.width = 12, fig.height = 4}
+file <- system.file("extdata", "sirv5.txt", package = "nexonsAnalysis")
+nexons_output <- readr::read_delim(file)
+parsed_splices <- parse_default_nexons(nexons_output)
+draw_splice_picture(parsed_splices, quant = FALSE, order_splices = "name")
 ```
 
 ### For multiple samples
